@@ -1,0 +1,42 @@
+---
+title: "Mycale grandis Substrate Association Analysis"
+author: "Emily C Rutkowski"
+format: html
+---
+
+```{r setup, include = FALSE} 
+# include = FALSE means this code runs but doesnt show in output 
+# set up global options for the whole quarto document 
+knitr::opts_chunk$set(echo = TRUE, # show code in output 
+                      warning = FALSE, # dont show warnings
+                      message = FALSE, # dont show messsages 
+                      fig.width = 10, # set default fig width 
+                      fig.height = 6) # set default fig height 
+
+```
+
+# Introduction 
+
+This analysis examines whether **Mycale grandis (MG)** shows a preferential association with **Porites compressa** live coral beyond what would be expected based on substrate availability alone.
+
+**Research Question:** Does Mycale grandis attach to Porites compressa simply because it's abundant, or does it show a true preference for this substrate?
+
+```{r load-packages}
+# Load libraries
+library(tidyverse) # tidyverse for everything
+library(readxl) # to read excel files
+library(patchwork) # to combine plots
+library(scales) # for better plot formatting 
+library(VGAM) # for beta-binomial regression 
+library(here)
+```
+
+# Load in Data 
+
+```{r load-data}
+# Read the Mycale grandis (MG) substrate association data
+# This file contains the percentage of MG on each substrate type per transect 
+mg_substrate<- read_csv(here("..", "data", "permgsubassoc.csv"))
+
+```
+
