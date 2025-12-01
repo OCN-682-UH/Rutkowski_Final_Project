@@ -1,7 +1,29 @@
 ---
 title: "Mycale grandis Substrate Association Analysis"
 author: "Emily C Rutkowski"
-format: html
+title-block-banner: "#0072B2"        # Adds colored banner behind title
+title-block-banner-color: "white"    # Text color on banner
+format: 
+  html:
+    include-in-header: # allows for font icons 
+      text: <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    mainfont: "Georgia" # main text font
+    monofont: "Fira Code" # code font
+    logo: "/Users/emilyrutkowski/Documents/MBIO612/Repository /MBIO612_Final_Project/mycalearmata1.jpg"
+    theme: lux                   #theme
+    toc: true                        # Table of contents
+    toc-location: left               # TOC on the left side
+    toc-depth: 3                     # How many header levels to show
+    toc-title: "Contents"            # Title for TOC
+    number-sections: true            # Number your sections
+    code-fold: true                  # Hide code by default (click to expand)
+    code-summary: "Show code"        # Text shown when code is folded
+    code-tools: true                 # Adds code menu in top right
+    smooth-scroll: true              # Smooth scrolling
+    highlight-style: github          # Code syntax highlighting style
+    lightbox: true            # makes images clickable to zoom 
+    fig-cap-location: bottom
+    tbl-cap-location: bottom
 ---
 
 ```{r setup, include = FALSE} 
@@ -15,11 +37,167 @@ knitr::opts_chunk$set(echo = TRUE, # show code in output
 
 ```
 
+```{css}
+#| echo: false
+
+/* This is all the css code to fine tune my Quarto page */
+
+.columns {display: flex; /* css code for image formatting */
+  align-items: center;}
+  
+  /* add footer at bottom of page */
+body::after {
+  content: "Emily Rutkowski | OCN 682 | University of Hawaiʻi at Mānoa"; /* display texxt */
+  display: block; /* full width */
+  text-align: center; /* center text */
+  padding: 20px; /* make it look nice */
+  color: gray; 
+  font-size: 12px; /* small text */
+  margin-top: 50px;} /* margin space */
+  
+/* hover effect on images */
+img:hover { /* targets images*/
+  transform: scale(1.02); /* makes images grow 102% of original */
+  transition: transform 0.3s ease; /* smooth transition */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);} /* adds shodows: 0 right, 4px down, 8px blur, 30% black */
+  
+/* Fancy dividers */
+hr { /* tagrtes horizontal elements */
+  border: none; /* removes dafult border */
+  height: 3px; /* makes the line 3 pix thick */ 
+  background: linear-gradient(to right, #0072B2, #009E73, #E69F00); /* color gradient */
+  margin: 30px 0;} /* adds 30 pix space above and below, 0 on sides */
+  
+/* styled blockquotes */
+blockquote { /* targets block quote elements */
+  border-left: 5px solid #0072B2; /* add a blue line on left side of quote */
+  background-color: #f8f9fa; /* grey background */
+  padding: 15px; /* padding inside text */
+  margin: 20px 0; /* adds 20 pix space above and below, 0 on sides */
+  font-style: italic;} /* italic */
+  
+
+/* Change code-summary (Show code) button color */
+details > summary {
+  color: #gray;     /* color */
+  font-weight: bold; /* bold */
+  cursor: pointer;  /* Show pointer on hover */
+}
+
+/* Change color when hovering */
+details > summary:hover {
+  color: #009E73;      /* Different color on hover */
+}
+
+
+/* Style when code is expanded */
+details[open] {
+  background-color: #f8f9fa;   /* gray background when open */
+}
+
+details > summary { /* target summary elements inside details elements */
+  color: #white;}
+
+
+/* Style the code-tools dropdown button */
+
+#quarto-code-tools-source,  /* targets the "View Source" button */
+#quarto-code-tools-menu,    /* targets the code tools menu */
+.code-tools-button {      /* targets element with class "code-tools-button" */
+  color: white !important;  /* makes text white !important overrides other styles */
+  background-color: #0072B2 !important; /* sets button background to blue */
+  border: none !important;   /* removes border around the button */
+}
+
+/* Hover effect */
+#quarto-code-tools-source:hover,        
+#quarto-code-tools-menu:hover,          
+.code-tools-button:hover {    /* When hovering over any code-tools-button */
+  background-color: #000066 !important; /* changes to dark blue on hover */
+}
+
+/* Style the dropdown menu items */
+
+.dropdown-menu {    /* targets the dropdown menu */
+  border: 1px solid #0072B2; /* adds a blue border */
+}
+
+.dropdown-item:hover {  /* When hovering over items inside the dropdown */
+  background-color: #E6F3FF; /* changes background to color on hover */
+}
+
+/* Link colors */
+a {
+  color: #0072B2;   /* default link appearance */
+}
+
+a:hover {
+  color: #E69F00; /* color when mouse hovers over link */
+}
+
+a:visited {
+  color: ##663399; /* color after link was clicked */
+}
+
+a {
+  color: #0072B2;
+  text-decoration: none;  /* removes the underline */
+}
+
+a:hover {
+  color: #E69F00;
+  text-decoration: underline;  /* adds underline only on hover */
+}
+
+/* Inline code styling */
+code {
+  color: #E69F00; /* text color */
+  background-color: #f0f0f0;  /* background color */
+  padding: 2px 5px;   /* space around text */
+  border-radius: 3px; /* rounded corners */
+  font-weight: bold;  /* bold text */
+}
+
+/* Caption styling */
+figcaption {
+  font-size: 12px; /* font caoption size */
+  font-style: italic; /* italic */
+  color: gray; /* color */
+  text-align: center; /* center the text */
+  margin-top: 6px; /* spacing */
+}
+```
+
 # Introduction 
 
-This analysis examines whether **Mycale grandis (MG)** shows a preferential association with **Porites compressa** live coral beyond what would be expected based on substrate availability alone.
+Mycale **grandis** is an alien invasive sponge that was unintentionally introduced to Hawaiian waters in the late 1990s, likely through biofouling on ships' hulls arriving at Honolulu Harbor or Pearl Harbor (Shih & Popp, 2020). Native to Australia, Indonesia, Malaysia, and India, this bright orange, thickly encrusting sponge has become the most abundant and aggressive invasive sponge found on reefs in Hawaiʻi (Coles & Bolick, 2007; Shih & Popp, 2020). By 2005, M. **grandis** was observed aggressively overgrowing coral species including Montipora **capitata** and Porites **compressa** in Kāneʻohe Bay, with percent cover doubling in some reef areas between 2005 and 2006 (Vicente et al., 2016).
 
-**Research Question:** Does Mycale grandis attach to Porites compressa simply because it's abundant, or does it show a true preference for this substrate?
+Research shows M. **grandis** demonstrates remarkable resilience to predicted end-of-century ocean conditions. Survival and growth rates were unaffected by elevated pCO₂ and warmer temperatures (+3°C), suggesting this invasive species will continue competing with corals in a warmer, more acidic ocean (Vicente et al., 2016).
+
+::: {.callout-note}
+## Research Question 💡
+Does *Mycale grandis* show a preferential association with *Porites compressa* beyond what would be expected based on substrate availability alone?
+:::
+
+So, basically does it attach to Porites compressa simply because it's abundant, or does it show a _true_ preference for the coral?
+
+
+
+::: {.columns style="display: flex; align-items: center;"}
+
+::: {.column width="60%"}
+## Study Background 🔬
+
+> *Mycale grandis* is an invasive sponge species found throughout Hawaiian reefs. This study investigated whether it shows preferential attachment to *Porites compressa* coral or simply attaches based on substrate availability.
+:::
+
+::: {.column width="40%"}
+![Figure 4. *Mycale grandis* overgrowing *Porites compressa* coral in Kāne'ohe Bay, O'ahu, Hawai'i.](mycalearmata1.jpg)
+:::
+
+:::
+
+---
 
 ```{r load-packages}
 # Load libraries
@@ -28,15 +206,917 @@ library(readxl) # to read excel files
 library(patchwork) # to combine plots
 library(scales) # for better plot formatting 
 library(VGAM) # for beta-binomial regression 
+library(kableExtra) # for fancy tables 
+library(ggrepel) # for clean plots 
+library(details) # creates collapsibles from R w/o html - so nice!!!!
+library(webshot2) # saves tables as screenshot images (for kable) 
 library(here)
 ```
 
-# Load in Data 
+# <i class="fa-solid fa-database"></i> Load in Data 
 
 ```{r load-data}
 # Read the Mycale grandis (MG) substrate association data
 # This file contains the percentage of MG on each substrate type per transect 
-mg_substrate<- read_csv(here("..", "data", "permgsubassoc.csv"))
+mg_substrate<- read_csv(here("data", "permgsubassoc.csv")) 
+
+# Read in full survey master data (all sponge observations)
+# Contains raw count data for all sponges 
+full_survey<- read_csv(here("data", "fullsurvey.csv"))
+
+# Read the transect benthic cover data
+# This contains point-intercept data showing what substrates are available 
+transect_data<- read_excel(here("data", "transect_data.xlsx"))
 
 ```
 
+I used three datasets for this analysis:
+
+1. `mg_substrate` - percentage of *Mycale grandis* found on each substrate type per transect
+2. `full_survey` - raw count data for all sponge species observed across all sites
+3. `transect_data` - point-intercept benthic cover data describing the available substrates at each site
+
+---
+
+# <i class="fa-solid fa-magnifying-glass"></i> Data Check 
+
+```{r}
+#| output: false
+#| message: false
+#| warning: false
+# Since I didnt collect these data, I need to know what type of datasets I'm working with. 
+
+# Check station names across all three datasets
+cat("MG Substrate stations:\n")
+sort(unique(mg_substrate$station))
+
+cat("\n\nFull Survey stations:\n")
+sort(unique(full_survey$station))
+
+cat("\n\nTransect Data stations:\n")
+sort(unique(transect_data$Station))
+
+# Compare them
+cat("\n\nStations in mg_substrate but NOT in transect_data:\n")
+setdiff(tolower(unique(mg_substrate$station)), tolower(unique(transect_data$Station)))
+
+cat("\n\nStations in transect_data but NOT in mg_substrate:\n")
+setdiff(tolower(unique(transect_data$Station)), tolower(unique(mg_substrate$station)))
+##############################################################
+
+# Check substrate codes across all three datasets
+cat("MG Substrate substrate codes:\n")
+sort(unique(mg_substrate$substrate))
+
+cat("\n\nFull Survey substrate codes:\n")
+sort(unique(full_survey$sub))
+
+cat("\n\nTransect Data substrate codes:\n")
+sort(unique(transect_data$inter_subst))
+
+# Compare them
+cat("\n\nSubstrates in mg_substrate but NOT in transect_data:\n")
+setdiff(tolower(unique(mg_substrate$substrate)), tolower(unique(transect_data$inter_subst)))
+
+cat("\n\nSubstrates in transect_data but NOT in mg_substrate:\n")
+setdiff(tolower(unique(transect_data$inter_subst)), tolower(unique(mg_substrate$substrate)))
+
+cat("\n\nSubstrates in full_survey but NOT in transect_data:\n")
+setdiff(tolower(unique(full_survey$sub)), tolower(unique(transect_data$inter_subst)))
+```
+
+::: {.callout-note}
+## Data Consistency Check
+This step reveals the unique values in each column and identifies any mismatches across datasets.
+:::
+
+Data consistency was verified by comparing unique station names and substrate codes across all three datasets. This revealed several inconsistencies:
+
+- Mixed case entries
+- Trailing spaces
+- Typos in substrate codes
+- Different naming conventions for the same stations
+
+These issues were addressed in the data cleaning step to ensure accurate joins between datasets.
+
+---
+
+# <i class="fa-solid fa-broom"></i> Data Cleaning 
+
+```{r clean-data}
+# clean the names for consistency and to match datasets 
+
+# clean up the mg_substrate data
+# some columns are empty- remove
+mg_substrate <- mg_substrate %>%
+  select(transectstation, percent, substrate, station, transect) %>%
+  mutate(station = tolower(station)) %>% # make station names lowercase 
+  mutate(substrate = tolower(substrate))
+
+# Clean full survey data
+full_survey <- full_survey %>%
+  mutate(station = tolower(station)) %>% # make station name lowercase
+  mutate(sub = tolower(sub)) %>% # make substrate codes lowercase 
+  rename(substrate = sub) # rename column name 
+
+
+# clean transect data and rename stations to match 
+transect_data <- transect_data %>%
+  mutate(inter_subst = tolower(inter_subst)) %>% # make lowercase 
+  mutate(inter_subst = str_replace_all(inter_subst, "\\s+", "")) %>% # remove leading/trailing spaces 
+  mutate(Station = tolower(Station)) %>% # make lowercase 
+  mutate(Station = case_when(Station == "pl" ~ "plf", # rename stations to match 
+                             Station == "yc" ~ "yc1",
+                             Station == "yc2_2" ~ "yc2",
+                             TRUE ~ Station))  %>% # everything else stys the same 
+    mutate(inter_subst = case_when(inter_subst == "ca" ~ "cca", # fix typos 
+                                   inter_subst == "dcc" ~ "dc",
+                                   inter_subst == "ma" ~ "mac",
+                                   inter_subst == "mcp" ~ "mcap",
+                                   inter_subst == "pcm" ~ "pcom",
+                                   inter_subst == "pom" ~ "pcom",
+                                   TRUE ~ inter_subst)) %>% # everything else stayss the same 
+  rename(station = Station, # rename columns to match 
+         transect = Transect,
+         substrate = inter_subst)
+  
+```
+
+**Station names and substrate codes were standardized through the following corrections:**
+
+- Converted all substrate codes to lowercase
+- Removed trailing whitespace from substrate entries
+- Corrected typos in substrate codes (e.g., "pcm" → "pcom", "dcc" → "dc")
+- Renamed stations to match across datasets (e.g., "pl" → "plf", "yc" → "yc1")
+- Standardized column names so all datasets use `station`, `transect`, and `substrate`
+
+Now, lets verify it worked.
+```{r}
+#| output: false
+#| message: false
+#| warning: false
+cat("MG Substrate stations:\n")
+sort(unique(mg_substrate$station))
+
+cat("\n\nFull Survey stations:\n")
+sort(unique(full_survey$station))
+
+cat("\n\nTransect Data stations:\n")
+sort(unique(transect_data$station))
+
+cat("\n\nStations in mg_substrate but NOT in transect_data:\n")
+setdiff(unique(mg_substrate$station), unique(transect_data$station))
+
+cat("\n\nStations in transect_data but NOT in mg_substrate:\n")
+setdiff(unique(transect_data$station), unique(mg_substrate$station))
+
+cat("\n\nMG Substrate substrate codes:\n")
+sort(unique(mg_substrate$substrate))
+
+cat("\n\nFull Survey substrate codes:\n")
+sort(unique(full_survey$substrate))
+
+cat("\n\nTransect Data substrate codes:\n")
+sort(unique(transect_data$substrate))
+
+cat("\n\nSubstrates in mg_substrate but NOT in transect_data:\n")
+setdiff(unique(mg_substrate$substrate), unique(transect_data$substrate))
+
+cat("\n\nSubstrates in transect_data but NOT in mg_substrate:\n")
+setdiff(unique(transect_data$substrate), unique(mg_substrate$substrate))
+
+cat("\n\nSubstrates in full_survey but NOT in transect_data:\n")
+setdiff(unique(full_survey$substrate), unique(transect_data$substrate))
+```
+
+---
+
+# <i class="fa-solid fa-gears"></i> Data Wrangling
+
+## Calculate Benthic Cover 
+
+Calculate the percent cover of substrate types at each station __and__ look at Porites cover specifically.
+```{r}
+# Calculate the percent cover of substrate types at each station
+
+benthic_cover<- transect_data %>%
+  filter(substrate %in% c("sa", "rb", "dc", "mcap", "pcom", "mol", "cca", "mac")) %>% # filter to 8 substrate types- not sponges 
+  group_by(station, substrate) %>% 
+  summarise(n_points = n(), .groups = 'drop') %>% # count the # of points for each substrate 
+  group_by(station) %>% # calculate total points per station 
+  mutate(total_points = sum(n_points)) %>% # add column w/ total points for that station 
+  mutate(percent_cover = (n_points / total_points) * 100) %>% # calculate percent covver 
+  select(station, substrate, percent_cover) 
+
+head(benthic_cover) %>% # check result 
+  details(summary = "Show tibble") # hides tibble but still viewable 
+
+#Look at Porites compressa cover specifically 
+benthic_cover %>%
+  filter(substrate == "pcom") %>%
+  arrange(station) %>%
+  details(summary = "Show tibble") # hides tibble but still viewable 
+```
+
+The substrate types were recorded from point-intercept data from the transect surveys. The eight substrate types included:
+
+| Code | Substrate |
+|------|-----------|
+| sa | Sand |
+| rb | Rubble |
+| dc | Dead coral |
+| mcap | *Montipora capitata* |
+| pcom | *Porites compressa* |
+| mol | Mollusc |
+| cca | Crustose coralline algae |
+| mac | Macroalgae |
+
+*Porites compressa* cover varied considerably across sites, ranging from **12.1%** at Yacht Club 1 to **72.9%** at Reef 25.
+
+::: {.callout-tip}
+## Research Question
+If *Mycale grandis* attaches randomly based on availability, we'd expect more *M. grandis* on *Porites* at sites like Reef 25. If *M. grandis* shows a **preference**, it would attach to *Porites* more than expected even at low-cover sites!
+:::
+
+
+## Sponge-Substrate Associations
+```{r}
+# Prep data for plot 1
+# Count how many times each sponge sp. was found on each substrate 
+all_sponge_counts<- full_survey %>%
+  group_by(sponge, substrate, station) %>% # group by sp, type of substrate it was found on, and station
+  summarise(total = sum(quan), .groups = 'drop') %>% # sum the quantities 
+  group_by(sponge, station) %>% # group to calcualte percentages within in each station and sponge sp
+  mutate(sponge_total = sum(total)) %>% # add total for each sponge at station 
+  mutate(percent = (total / sponge_total) * 100) %>% # calculate percentage 
+  ungroup() # ungroup for further analyses 
+head(all_sponge_counts) %>%
+  details(summary = "Show tibble") # hides tibble but still viewable 
+```
+
+```{r}
+# Check total counts for each sponge species across all sites
+sponge_totals <- full_survey %>%
+  group_by(sponge) %>%
+  summarise(total_count = sum(quan), .groups = 'drop') %>%
+  arrange(desc(total_count))
+
+# View all sponges and their counts
+print(sponge_totals, n = 30) %>%
+  details(summary = "Show tibble") # hides tibble 
+```
+
+
+I calculated the total number of observations for each sponge species and the percentage of each species found on different substrate types at each site. 
+
+- *Mycale grandis* dominated the dataset with **1,808** 🧽 observations
+- *Monanchora clathrata* followed with **152** observations
+
+::: {.callout-warning}
+## Note on Sample Sizes
+Rare species with fewer than 10 observations may show extreme percentages due to small sample sizes. Interpret with caution.
+:::
+
+## Sponge Reference Table
+
+```{r}
+#| label: tbl-sponge-reference
+#| tbl-cap: "Table 1. Reference list of all 21 sponge species observed, including abbreviations and total counts."
+# Reference table for sponge species 
+sponge_reference <- tibble(
+  abbreviation = c("mg", "mclat", "echsp1", "subsp2", "cbur", "ssol", 
+                   "ipro", "gfib", "hcae", "psesp1", "lhaw", "cdif", 
+                   "cher", "chon", "dare", "halsp22", "bfis", "dyssp7", 
+                   "amosp1", "dpal", "dyssp3"),
+  species_name = c("Mycale grandis", "Monanchora clathrata", "Echinodictyum sp. 1", 
+                   "Suberitida sp. 2", "Cladocroce burapha", "Spheciospongia solida",
+                   "Iotrochota protea", "Gelliodes fibrosa", "Haliclona cf. caerulea",
+                   "Pseudoceratina sp. 1", "Lissodendoryx hawaiian", "Callyspongia diffusa",
+                   "Chelonaplysilla erecta", "Chondrosia sp. 1", "Dysidea arenaria",
+                   "Haliclona sp. 22", "Biemna fistulosa", "Dysidea sp. 7",
+                   "Amorphinopsis sp. 1", "Dysidea pallescens", "Dysidea sp. 3")) %>%
+  left_join(sponge_totals, by = c("abbreviation" = "sponge")) %>% # add total count for each sponge
+  arrange(desc(total_count)) # arrange by count (most common first)
+
+sponge_ref_table<- sponge_reference %>%
+knitr::kable( # display the table using knitrs kable function
+             col.names = c("Abbreviation", "Species Name", "Total Count"),
+             caption = "<span style='color: black; font-weight: bold;'>Sponge Species Reference Table</span>", # html tag to add custom styling 
+             align = c('l', 'l', 'c')) %>% # text alignment in each column
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), #striped adds alternating row colors, hover highlights on mouse-over
+                full_width = FALSE, # dont stretch table
+                position = "center") %>% # center on page 
+  row_spec(0, bold = TRUE, background = "#0072B2", color = "white") %>% #make header row bold w/ background color 
+  row_spec(1, bold = TRUE, background = "#E6F3FF") %>% # highlight mg row since its focal sp 
+  column_spec(2, italic = TRUE) %>% # make species names italic 
+  footnote(general = "*Species arranged by total observations (highest to lowest)")  # add footnote 
+
+sponge_ref_table 
+
+save_kable(sponge_ref_table, file = here("output", "Sponge_Reference_Table.png"))
+
+```
+
+I created a reference table listing all **21 sponge species** observed in the survey, including their abbreviations, full scientific names, and total observation counts. This table helps readers interpret the species codes used in the plots and highlights that *Mycale grandis* was by far the most abundant species observed.
+
+
+---
+
+# <i class="fa-solid fa-chart-line"></i> Plots
+## Plot 1: All Sponge-Substrate Associations
+```{r}
+#| label: fig-all-sponges
+#| fig-cap: "Figure 1. Substrate associations for all sponge species across ten survey sites in Kāne'ohe Bay."
+# create color-blind friendly palette for substrates ( Okabe-Ito) 
+substrate_colors <- c("sa" = "#E69F00",      # Orange - Sand
+                      "rb" = "#56B4E9",      # Sky blue - Rubble 
+                      "dc" = "#009E73",      # Bluish green - Dead Coral
+                      "mol" = "#F0E442",    # Yellow -  Mollusc
+                      "pcom" = "#0072B2",    # Blue - Porites compressa
+                      "mcap" = "#D55E00",     # Vermillion - Montipora capitata
+                      "cca" = "#CC79A7" )     # Reddish purple - CCA
+
+# Plot 1 - all sponges
+plot1<- all_sponge_counts %>%
+  mutate(station = case_when(station == "he" ~ "He'eia", # give station codes full name 
+                             station == "plf" ~ "Point Lab",
+                             station == "r10" ~ "Reef 10",
+                             station == "r18" ~ "Reef 18",
+                             station == "r25" ~ "Reef 25",
+                             station == "r29" ~ "Reef 29",
+                             station == "r41" ~ "Reef 41",
+                             station == "r5" ~ "Reef 5",
+                             station == "yc1" ~ "Yacht Club 1",
+                             station == "yc2" ~ "Yacht Club 2", TRUE ~ station)) %>% 
+  ggplot(aes(x = sponge, y = percent, fill = substrate))+ # color by substrate
+  geom_col(position = "stack")+ # use actual y values, not counts
+  facet_wrap(~ station, scales = "free_x")+ # free x allows diff sponges per panel 
+  scale_fill_manual(values = substrate_colors, # apply custom colors 
+                    name = "Substrate Type", # legend title 
+                    labels = c("sa" = "Sand", # give substrate codes full names 
+                              "rb" = "Rubble", 
+                              "dc" = "Dead Coral",
+                              "mcap" = "M. capitata",
+                              "pcom" = "P. compressa",
+                              "mol" = "Mollusc",
+                              "cca" = "CCA"))+
+  labs(title = "Substrate Associations for All Sponge Species by Site", # add titles and axis labels 
+       subtitle = "Showing percentage of each sponge species found on different substrate types",
+       x = "Sponge Species",
+       y = "Percentage (%)")+
+  theme_minimal()+ # clean theme 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8), # prevent overlap-rotate axis and align 
+        plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5), # make centered w/ title 
+        axis.title = element_text(size = 12), # make axis titles larger
+        legend.position = "bottom", # put legend on bottom 
+        legend.background = element_rect(color = "black", linewidth = 0.5), # legend border 
+        strip.text = element_text(face = "bold", size = 10)) # make facet panel labels bold 
+ggsave(here("output", "plot1_all_sponges.png"),
+       plot = plot1,
+       width = 14, 
+       height = 10)
+plot1
+```
+
+
+This plot shows the substrate associations for **all sponge species** at each site:
+
+- Each panel represents a different site
+- Stacked bars show the percentage of each sponge species found on different substrate types
+- Provides context for understanding *Mycale grandis* associations relative to other sponge species in the community
+
+
+## Plot 2: Mycale grandis Substrate Associations
+
+This *Relative Abundance* plot focuses specifically on ***M. grandis*** substrate associations across all ten sites. The stacked bars show the average percentage of *M. grandis* found on each substrate type at each site. 
+
+**Key observation:** *P. compressa* (blue) is a major substrate for *M. grandis* at most sites, though the proportion varies considerably.
+```{r}
+#| label: fig-mg-substrate
+#| fig-cap: "Figure 2. Relative abundance of *Mycale grandis* on different substrate types across ten survey sites. *Porites compressa* (blue) represents a major substrate at most sites, though proportions vary considerably."
+# prep data for mg 
+# combine transects within each station 
+mg_by_site<- mg_substrate %>%
+  group_by(station, substrate) %>%
+  summarise(mean_percent = mean(percent, na.rm = TRUE), # calculate mean % across all transects for each station 
+            .groups = 'drop') # drop after calculation 
+
+#create plot
+plot2<- mg_by_site %>% 
+  mutate(station = case_when(station == "he" ~ "He'eia", # replace station codes with full names 
+                             station == "plf" ~ "Point Lab",
+                             station == "r10" ~ "Reef 10",
+                             station == "r18" ~ "Reef 18",
+                             station == "r25" ~ "Reef 25",
+                             station == "r29" ~ "Reef 29",
+                             station == "r41" ~ "Reef 41",
+                             station == "r5" ~ "Reef 5",
+                             station == "yc1" ~ "Yacht Club 1",
+                             station == "yc2" ~ "Yacht Club 2", TRUE ~ station)) %>%
+  ggplot(aes(x = station, y = mean_percent, fill = substrate))+
+  geom_col(position = "stack", color = "black", linewidth = 0.3)+ # stacked bar chart w/ black outline
+  scale_fill_manual(values = substrate_colors, # apply custom colors 
+                    name = "Substrate Type",
+                    labels = c("sa" = "Sand",
+                              "rb" = "Rubble", 
+                              "dc" = "Dead Coral",
+                              "mcap" = "M. capitata",
+                              "pcom" = "P. compressa",
+                              "mol" = "Mollusc",
+                              "cca" = "CCA"))+
+  labs(title = "Mycale grandis Substrate Associations by Site",
+       subtitle = "Average percentage across all transects at each site",
+       x = "Site",
+       y = "Percentage (%)")+
+  theme_minimal()+ # clean theme
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10), # rotate labels 
+        axis.title.x = element_text(hjust = 0.5),
+        plot.title = element_text(face = "bold", size = 14, hjust = 0.5), # center titles 
+        plot.subtitle = element_text(hjust = 0.5),
+        axis.title = element_text(size = 12),
+        legend.position = "right", # put legend on right with box 
+        legend.background = element_rect(color = "black", linewidth = 0.5))
+ggsave(here("output", "plot2_mg_substrate.png"), 
+       plot = plot2,
+       width = 12, 
+       height = 8)
+plot2
+```
+
+---
+
+# <i class="fa-solid fa-microscope"></i> Regression Analysis
+## Regresion Data
+
+I prepared data for the beta-binomial regression by combining three pieces of information for each site:
+
+1. Total number of *M. grandis* colonies
+2. Number of *M. grandis* colonies specifically on *P. compressa*
+3. Percent cover of *P. compressa* in the environment
+
+This allowed us to test whether *M. grandis* attachment to *P. compressa* is related to substrate availability.
+
+```{r}
+#| warning: false
+#| message: false
+# Create dataset that has:
+# 1. Number of mg colonies on P.compressa at each site
+# 2. Total number of mg colonies at each site
+# 3. Percent cover of P.compressa at each site
+
+# get total mg counts per site from full survey
+mg_counts<- full_survey %>%
+  filter(sponge == "mg") %>% # filter by mycale only 
+  group_by(station) %>%
+  summarise(total_mg = sum(quan), .groups = 'drop') # sum of all mg colonies 
+
+# count mg on p.compressa
+mg_pcom_counts<- full_survey %>%
+  filter(sponge == "mg", substrate == "pcom") %>% # filter for mg on pcom 
+  group_by(station) %>%
+  summarise(mg_on_pcom = sum(quan), .groups = 'drop') # sum quantities 
+
+# get proites cover from benthic data 
+pcom_avail<- benthic_cover %>%
+  filter(substrate == "pcom") %>% # filtfor pcompressa
+  select(station, pcom_cover = percent_cover) #rename 
+
+# combine all data
+regression_data<- mg_counts %>%
+  left_join(mg_pcom_counts, by = "station") %>% # join with mg on porites counts 
+  left_join(pcom_avail, by = "station") %>% # join with porites cover data 
+  mutate(mg_on_pcom = replace_na(mg_on_pcom, 0)) %>% # replace NAs with 0- sites where no mg on porites 
+  mutate(mg_not_pcom = total_mg - mg_on_pcom) %>% # calculate mg not on porites
+  mutate(prop_mg_on_pcom = mg_on_pcom / total_mg)
+print(regression_data) %>%
+  details(summary = "Show tibble") # hides tibble 
+```
+
+::: {.callout-note}
+## Quick Observations from the Data
+
+| Site | *P. compressa* Cover | *M. grandis* on *Porites* |
+|------|---------------------|---------------------------|
+| Reef 25 | **72.9%** (highest) | **56.3%** (highest) |
+| Yacht Club 1 | **12.1%** (lowest) | **17.6%** (lowest) |
+
+This suggests *M. grandis* attachment might follow *P. compressa* availability... but let's test it statistically! 📊
+:::
+
+## Beta-Binomial Regression 
+
+I used **beta-binomial regression** to test the relationship between *P. compressa* availability and *M. grandis* attachment. 
+
+::: {.callout-tip}
+## Why Beta-Binomial?
+Beta-binomial regression is appropriate for proportion data that shows **overdispersion** (more variability than expected from a simple binomial distribution).
+:::
+
+The model tested whether the proportion of *M. grandis* on *P. compressa* is predicted by the percent cover of *P. compressa* in the environment.
+
+```{r}
+#| output: false
+#| message: false
+#| warning: false
+# Beta-binomial regression accounts for overdispersion in binomial data
+# The model structure:
+# Response: cbind(successes, failures) - MG on Porites vs MG on other substrates  
+# Predictor: pcom_cover - availability of Porites in the environment
+
+# beta-binomial model using VGAM package 
+# vglm- vector generalized linear models 
+bb_model<- vglm(cbind(mg_on_pcom, mg_not_pcom) ~ pcom_cover, # combine rows- response variable
+                family = betabinomial, # specfiy which family
+                data = regression_data) # which data 
+summary(bb_model)
+
+```
+
+## Regression Results Table
+
+::: {.callout-important}
+## Key Finding
+The regression results showed a **highly significant positive relationship** between *P. compressa* cover and *M. grandis* attachment:
+
+| Parameter | Value |
+|-----------|-------|
+| Coefficient | 0.036 |
+| z-statistic | 6.789 |
+| p-value | **< 0.001** |
+
+This means that as *P. compressa* availability increases, the proportion of *M. grandis* attaching to *P. compressa* also increases significantly.
+:::
+
+```{r}
+#| label: tbl-regression-results
+#| tbl-cap: "Table 2. Beta-binomial regression results testing the relationship between *P. compressa* availability and *M. grandis* substrate attachment."
+
+regression_results <- tibble(Parameter = c("Intercept (μ)", "Intercept (ρ)", "Porites compressa Cover"), # parameter names
+                             Estimate = c(-1.935, -4.046, 0.036), # Coefficient estimates
+                             `Std. Error` = c(0.223, 0.601, 0.005), # standard errors
+                             `z value` = c(-8.663, -6.730, 6.789), # Z values
+                             `p value` = c("< 0.001", "< 0.001", "< 0.001"), # P values
+                             Significance = c("***", "***", "***")) # significance
+
+regression_table<- regression_results %>% # kableExtra
+  knitr::kable(caption = "<span style='color: black; font-weight: bold;'>Beta-Binomial Regression Results</span>", # html tag to add custom styling
+               align = c('l', 'c', 'c', 'c', 'c', 'c')) %>% # text alignment 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), #striped adds alternating row colors, hover highlights on mouse-over
+                full_width = FALSE, # dont strecth table
+                position = "center") %>% # center 
+  row_spec(0, bold = TRUE, background = "#0072B2", color = "white") %>% # edit header row
+  row_spec(3, bold = TRUE, background = "#E6F3FF") %>% # highlight the Porites cover row 
+  footnote(general = "Significance codes: *** p < 0.001", # add footnotes explaining the parameters
+           number = c("μ = mean probability parameter",
+               "ρ = overdispersion parameter")) 
+regression_table
+
+save_kable(regression_table, file = here("output", "Regression_Table.png"))
+```
+
+::: {.callout-important}
+## Key Finding
+The beta-binomial regression revealed a highly significant positive relationship between *Porites compressa* availability and *Mycale grandis* attachment (p < 0.001).
+:::
+
+## Calculate R² Value 
+```{r}
+
+lm_model <- lm(prop_mg_on_pcom ~ pcom_cover, data = regression_data) # linear model to get R2
+r_squared <- summary(lm_model)$r.squared # get R2 value
+r_squared <- round(r_squared, 3) # roundto 3 decimal places
+
+# Check the value
+r_squared
+```
+
+## Plot 3: Regression Visualization
+
+This plot visualizes the relationship between *Porites compressa* availability (x-axis) and the proportion of *M. grandis* found on *P. compressa* (y-axis).
+
+**Plot elements:**
+
+- 🟢 **Green regression line** with 95% confidence band — the observed relationship
+- 🟠 **Orange dashed reference line** — expected relationship if *M. grandis* attached to *P. compressa* purely based on availability (1:1 relationship)
+
+```{r}
+#| label: fig-regression
+#| fig-cap: "Figure 3. Relationship between *P. compressa* availability and proportion of *M. grandis* attachment. Green line shows observed regression with 95% CI; orange dashed line represents expected 1:1 relationship."
+plot3<- regression_data%>%
+  mutate(station = case_when(station == "he" ~ "He'eia", # rename station codes 
+                             station == "plf" ~ "Point Lab",
+                             station == "r10" ~ "Reef 10",
+                             station == "r18" ~ "Reef 18",
+                             station == "r25" ~ "Reef 25",
+                             station == "r29" ~ "Reef 29",
+                             station == "r41" ~ "Reef 41",
+                             station == "r5" ~ "Reef 5",
+                             station == "yc1" ~ "Yacht Club 1",
+                             station == "yc2" ~ "Yacht Club 2", TRUE ~ station)) %>%
+  ggplot(aes(x = pcom_cover, y = prop_mg_on_pcom))+
+  geom_smooth(method = "lm", # linear model 
+              se = TRUE, # show stdard error 
+              color = "#009E73",# line color
+              fill = "#009E73", # confidence band fill color
+              alpha = 0.2)+
+  geom_abline(slope = 0.01, # slope 0.01 converts % to proportion
+              intercept = 0, # line passes through origin
+              linetype = "dashed",
+              color = "#D55E00", # Vermillion color 
+              linewidth = 1)+ # line thickness 
+  geom_point(size = 4, alpha = 0.7, color = "#0072B2") + # scatter plot points for each site 
+  geom_text_repel(aes(label = station), # add site labels next to points 
+            size = 3.5, # text size 
+            fontface = "bold",
+            nudge_x = -1, # push label to left
+            direction = "y", # move up
+            hjust = 1, # text ends near point 
+            box.padding = 0.5, # soace between label and point
+            point.padding = 0.3, # min distance from point
+            segment.color = "gray50", # color of line connecting to point
+            max.overlaps = Inf, # show all labels even if crowded
+            min.segment.length = 0)+ # draw connecting line 
+  annotate("text", # add R2 label 
+           x = 60,                              # place on x axis 
+           y = 0.30,                            # place on y axis 
+           label = paste0("R² = ", r_squared),  # text
+           size = 5,                            # text size
+           fontface = "bold",                   # bold
+           color = "#009E73")+                   # green to match regression line
+  scale_x_continuous(labels = scales::percent_format(scale = 1))+ # format x-axis labels as percentages 
+  scale_y_continuous(labels = scales::percent_format(scale = 100))+ # format y-axis labels as percentages (scale = 100 converts proportion to %)
+  labs(title = "Mycale grandis Association with Porites compressa vs. Substrate Availability", # add labels/titles 
+       subtitle = "Beta-binomial regression analysis testing for substrate preference",
+       x = "Porites compressa Cover in Environment (%)",
+       y = "Mycale grandis on Porites compressa (%)",
+       caption = "Orange dashed line = expected if M.grandis follows substrate availability\nGreen line = observed relationship (with 95% confidence interval)")+
+  theme_minimal()+
+  theme(plot.title = element_text(face = "bold", size = 14, hjust = 0.5), 
+        plot.subtitle = element_text(size = 11, color = "gray40", hjust = 0.5), # center subtitle
+        plot.caption = element_text(size = 9, hjust = 0, color = "gray40"),# left-align caption
+        axis.title = element_text(size = 12), 
+        axis.title.x = element_text(hjust = 0.5, angle = 0),# keep x-axis title centered and straight
+        axis.text = element_text(size = 10)) # axis text size
+ggsave(here("output", "plot3_regression.png"), 
+       plot = plot3,
+       width = 10, 
+       height = 7)
+  plot3
+```
+
+
+
+::: {.callout-tip}
+## Interpretation
+Compare the green regression line to the orange reference line - if points fall above the orange line, *Mycale grandis* shows preference for *Porites compressa*.
+:::
+
+---
+
+# <i class="fa-solid fa-table"></i> Summary Statistics Table
+
+The summary table presents key statistics for each site:
+
+- Total *M. grandis* colonies
+- Number found on *P. compressa*
+- Percentage on *P. compressa*
+- Percent *P. compressa* availability
+
+This allows direct comparison between what is **available** in the environment and where *M. grandis* is **actually found**.
+
+```{r}
+#| label: tbl-summary-stats
+#| tbl-cap: "Table 3. Summary statistics for each survey site including total *M. grandis* colonies, number found on *P. compressa*, percentage on *P. compressa*, and percent *P. compressa* availability in the environment."
+# Create a summary table for each site
+summary_table <- regression_data %>%
+  mutate(station = case_when( # rename station codes 
+    station == "he" ~ "He'eia",
+    station == "plf" ~ "Point Lab",
+    station == "r10" ~ "Reef 10",
+    station == "r18" ~ "Reef 18",
+    station == "r25" ~ "Reef 25",
+    station == "r29" ~ "Reef 29",
+    station == "r41" ~ "Reef 41",
+    station == "r5" ~ "Reef 5",
+    station == "yc1" ~ "Yacht Club 1",
+    station == "yc2" ~ "Yacht Club 2", TRUE ~ station)) %>%
+  mutate(percent_mg_on_pcom = round(prop_mg_on_pcom * 100, 1), #proportion to % and round values to look cleaner 
+         pcom_cover = round(pcom_cover, 1)) %>%
+  select(Site = station, # rename columns 
+         `Total MG Colonies` = total_mg,
+         `MG on Porites` = mg_on_pcom,
+         `% MG on Porites` = percent_mg_on_pcom,
+         `% Porites Available` = pcom_cover) %>%
+  arrange(Site) # arrange site alphabetically 
+
+
+summary_table %>% # kableExtra formatting
+  knitr::kable(caption = "<span style='color: black; font-weight: bold;'>Summary of Mycale grandis - Porites compressa Associations by Site</span>", # html tag to add custom styling
+               align = c('l', 'c', 'c', 'c', 'c')) %>% # text alignment 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE, # dont stretch across page 
+                position = "center") %>% # make center on page 
+  row_spec(0, bold = TRUE, background = "#0072B2", color = "white") %>% # style header row 
+  column_spec(1, border_right = TRUE) %>% # add vertical lines between columns
+  column_spec(2, border_right = TRUE) %>%   
+  column_spec(3, border_right = TRUE) %>%   
+  column_spec(4, border_right = TRUE)    
+ 
+```
+
+---
+
+# <i class="fa-solid fa-laptop-code"></i> Summary of All Plots
+
+::: {.panel-tabset}
+
+
+
+## All Sponges
+```{r}
+#| label: fig-plot1
+#| fig-cap: "Substrate associations for all sponge species across Hawaiian reef sites"
+#| fig-width: 14
+#| fig-height: 10
+
+plot1
+```
+
+## Mycale grandis
+```{r}
+#| label: fig-plot2
+#| fig-cap: "Mycale grandis substrate associations by site"
+#| fig-width: 12
+#| fig-height: 8
+
+plot2
+```
+
+## Regression
+```{r}
+#| label: fig-plot3
+#| fig-cap: "Relationship between Porites compressa availability and Mycale grandis attachment"
+#| fig-width: 10
+#| fig-height: 7
+
+plot3
+```
+
+:::
+
+---
+
+# <i class="fa-solid fa-code-branch"></i> Conclusions 
+
+## Statistical Evidence
+
+This analysis investigated whether *M. grandis* shows a **preferential association** with *P. compressa* coral beyond what would be expected based on substrate availability alone.
+Using beta-binomial regression, we found a **highly significant positive relationship** between *P. compressa* availability and *M. grandis* attachment (p < 0.001), indicating that sites with more *P. compressa* have a higher proportion of *M. grandis* on this substrate.
+
+## Interpreting the Regression Plot
+
+Examining Plot 3, we can compare:
+
+- **Green line** — observed relationship
+- **Orange dashed line** — expected 1:1 relationship if *M. grandis* simply followed availability
+
+At most sites, the observed proportion of *M. grandis* on *P. compressa* falls **close to or slightly below** the reference line, suggesting that *M. grandis* attachment largely tracks substrate availability rather than showing a strong active preference.
+
+### Site-Level Variation
+
+However, there is notable variation among sites:
+
+| Pattern | Example Site |
+|---------|--------------|
+| Higher than expected | Reef 29 |
+| Lower than expected | Yacht Club 1 |
+
+This variation could be influenced by other environmental factors such as water flow, light availability, or competition with other organisms.
+
+## Take-Home Message
+
+While *M. grandis* is commonly found on *P. compressa*, this association appears to be **largely driven by substrate availability** rather than active substrate selection. The significant positive relationship simply reflects that *M. grandis* attaches to *P. compressa* more frequently where this coral is abundant.
+**Future directions:** Additional studies could investigate whether specific microhabitat conditions or coral health influence *M. grandis* settlement patterns beyond simple availability.
+
+---
+
+# <i class="fa-regular fa-folder-open"></i> References
+
+- Coles, S. L., Marchetti, J., Bolick, H., & Montgomery, A. (2007). Assessment of invasiveness of the Orange Keyhole Sponge *Mycale armata* in Kāne'ohe Bay, O'ahu, Hawai'i. Final Report, Year 2. [Hawaii Coral Reef Initiative Research Program](https://link.springer.com/article/10.1007/s00338-007-0295-x).
+
+- Shih, J. L., & Popp, B. N. (2020). Assessment of an invasive tropical sponge on coral reefs in Hawai'i. [*Pacific Science*, 74(2), 175-187](https://doi.org/10.2984/74.2.7).
+
+- Vicente, J., Silbiger, N. J., Beckley, B. A., Raczkowski, C. W., & Hill, R. T. (2016). Impact of high pCO₂ and warmer temperatures on the process of silica biomineralization in the sponge *Mycale grandis*. [*ICES Journal of Marine Science*, 73(3), 704-714](https://doi.org/10.1093/icesjms/fsv235).
+
+---
+
+# <i class="fa-solid fa-award"></i> Bonus: Document Features
+
+::: {}
+
+<details>
+<summary><b>Click to expand: Full list of 50+ features implemented</b></summary>
+
+**YAML Header Configuration**
+
+- `title-block-banner` - Colored title banner
+- `title-block-banner-color` - White banner text
+- `include-in-header` - Font Awesome icons
+- `mainfont` / `monofont` - Custom fonts
+- `theme: lux` - Bootstrap theme
+- `toc` - Left-side table of contents
+- `toc-depth: 3` - Three header levels in TOC
+- `number-sections` - Auto section numbering
+- `code-fold` - Collapsible code blocks
+- `code-tools` - Code menu button
+- `smooth-scroll` - Smooth scrolling
+- `highlight-style: github` - Syntax highlighting
+- `lightbox` - Click-to-zoom images
+- `fig-cap-location: bottom` - Captions below figures
+- `tbl-cap-location: bottom` - Captions below tables
+
+**CSS Styling**
+
+- Flexbox columns - Vertical alignment
+- Custom footer - Author info at bottom
+- Image hover effects - Scale and shadow
+- Gradient dividers - Colorful hr lines
+- Styled blockquotes - Blue border, gray background
+- Code summary buttons - Custom toggle colors
+- Code-tools dropdown - Styled menu
+- Link styling - Custom link colors
+- Inline code styling - Orange with gray background
+- Figure captions - Italic, gray, centered
+
+**Quarto-Specific Features**
+
+- Callout boxes - Note, tip, warning, important
+- Two-column layouts - Side-by-side content
+- Tabset panels - Interactive tabs
+- Figure labels and captions
+- Table labels and captions
+- Font Awesome icons - Section headers
+- Styled cards - Author info box
+- Gradient horizontal dividers
+- Collapsible output - details tags for tibbles
+- Collapsible sections - This bonus section
+
+**R Programming Features**
+
+- Global chunk options
+- Hidden code chunks
+- Colorblind-friendly palette - Okabe-Ito
+- ggplot2 - Custom themes and facets
+- Beta-binomial regression
+- kableExtra - Styled tables
+- R-squared annotation on plot
+- ggrepel - Clean point labels
+- scales - Percent axis formatting
+- save_kable - Saving tables as images
+- webshot2 - HTML to image conversion
+- ggsave with here - Saving plots 
+- here package - Reproducible file paths
+
+**Markdown Formatting**
+
+- Bold and italic text
+- Inline code formatting
+- Numbered and bullet lists
+- Pipe tables
+- Clickable links
+- Image captions
+- Emojis
+- Unicode subscripts
+- HTML line breaks
+
+**Color Palette - Okabe-Ito**
+
+- Blue 0072B2 - Links, headers, P. compressa
+- Orange E69F00 - Sand, inline code
+- Green 009E73 - Regression line
+- Vermillion D55E00 - Reference line
+- Sky Blue 56B4E9 - Rubble
+- Yellow F0E442 - Mollusc
+- Purple CC79A7 - CCA
+
+**Total: 56 features!**
+
+</details>
+
+:::
+
+---
+
+
+
+::: {.card style="background-color: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0; border: 1px solid #ddd;"}
+
+**Author:** Emily Rutkowski<br>
+**Affiliation:** University of Hawaiʻi at Mānoa<br>
+**Course:** OCN 682 - Data Science Fundamentals in R<br>
+**Date:** Fall 2025<br>
+**GitHub:** <i class="fa-brands fa-github"></i> [View Project Repository](https://github.com/OCN-682-UH/Rutkowski_Final_Project)<br>
+**Awesomeness Level:** 💯
+
+:::

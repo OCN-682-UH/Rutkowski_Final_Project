@@ -1,0 +1,53 @@
+﻿name,plot_name,description
+Inter_sub,Intercepted Substrate ,Substrate type at intercept point 
+ta,Turf Algae,Substrate type documented in the transect 
+cor,Coral,Substrate type documented in the transect 
+cca,Coralline Algae,Substrate type documented in the transect 
+sp,Sponge,Substrate type documented in the transect 
+dc,Dead Coral,Substrate type documented in the transect 
+rb,Rubble,Substrate type documented in the transect 
+sa,Sand,Substrate type documented in the transect 
+mol,Mollusk,Substrate type documented in the transect 
+mac,Macroalgae ,Substrate type documented in the transect 
+mcap,Montipora capitata,Coral species documented in the transect 
+pcom,Porites compressa,Coral species documented in the transect 
+pacu,Pocillopora acuta,Coral species documented in the transect 
+mg,Mycale grandis,Sponge species documented in the transect 
+mclat,Monanchora clathrata,Sponge species documented in the transect 
+ipro,Iotrochota protea ,Sponge species documented in the transect 
+chon,Chondrosia sp. 1,Sponge species documented in the transect 
+ssol,Spheciospongia solida,Sponge species documented in the transect 
+cdif,Callyspongia diffusa,Sponge species documented in the transect 
+dare,Dysidea arenaria,Sponge species documented in the transect 
+dyssp7,Dysidea sp. 7,Sponge species documented in the transect 
+dyssp3,Dysidea sp. 3,Sponge species documented in the transect 
+clisp1,Clionaida sp. 1,Sponge species documented in the transect 
+subsp2,Suberitida sp. 2,Sponge species documented in the transect 
+echsp1,Echinodictyum sp. 1,Sponge species documented in the transect 
+psesp1,Pseudoceratina sp. 1,Sponge species documented in the transect 
+hcae,Haliclona cf. caerulea ,Sponge species documented in the transect 
+amosp1,Amorphinopsis sp. 1,Sponge species documented in the transect 
+lhaw,Lissodendoryx hawaiian,Sponge species documented in the transect 
+dpal,Dysidea pallescens,Sponge species documented in the transect 
+dyssp9,Dysidea sp. 9,Sponge species documented in the transect 
+gfib,Gelliodes fibrosa ,Sponge species documented in the transect 
+hchlo,Hymeniacidon chloris,Sponge species documented in the transect 
+bfis,Biemna fistulosa ,Sponge species documented in the transect 
+subsp1,Suberites sp. 1,Sponge species documented in the transect 
+cher,Chelonaplysilla erecta,Sponge species documented in the transect 
+cbur,Cladocroce burapha,Sponge species documented in the transect 
+halsp22,Haliclona sp. 22,Sponge species documented in the transect 
+Inter_sponge,Sponge Substrate,"Substrate the sponge is found with. Example: coral, rubble, sand "
+CN,Coral Nursery,Survey station code
+plf,Point Lab,Survey station code
+yc1,Yacht Club 1,Survey station code
+yc 2,Yacht Club 2,Survey station code
+R5,Reef 5,Survey station code
+R10,Reef 10,Survey station code
+R18,Reef 18,Survey station code
+R25,Reef 25,Survey station code
+R29,Reef 29,Survey station code
+R41,Reef 41,Survey station code
+he,He'eia Harbor ,Survey station code
+transect,Transect Number,Numeric transect number 
+quan,not in plot-used for analyses ,Number of colonies observed 
